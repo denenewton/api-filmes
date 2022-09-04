@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: black;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="search" name="search" id="search" />
+    <ul id="ul">
+
+    </ul>
+    <script>
+      const API_KEY = '633850d2875917e088075da2bad6265e';
+
+      document.getElementById('search').onchange = function () {
+        let termo = this.value;
+        console.log(termo);
+        fetch(
+        `https://api.themoviedb.org/3/search/keyword?api_key=${API_KEY}&query=${termo}`)
+          .then(resp => resp.json())
+          .then(data => {
+            console.log(data.results);
+            document.getElementById('ul').innerHTML= data.results.map(m =>{
+                return `
+            <li>${m.name}</li>
+            `
+            }).join('')
+
+          })
+          
+      }
+    </script>
+  </body>
+</html>
